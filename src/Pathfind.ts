@@ -56,7 +56,7 @@ export class PathFinder {
       for (const neigh of neighbors) {
         if (!neigh || neigh.closed || !neigh.walkable) continue
 
-        const gscore = currentNode.g + neigh.getCost(currentNode)
+        const gscore = currentNode.g * neigh.getCost(currentNode)
         const beenVisited = neigh.visited
 
         if (!beenVisited || gscore < neigh.g) {
@@ -64,7 +64,7 @@ export class PathFinder {
           neigh.parent = currentNode
           neigh.h =
             neigh.h ||
-            this.heuristic(neigh, this.endNode) + neigh.getCost(neigh)
+            this.heuristic(neigh, this.endNode) * neigh.getCost(neigh)
           neigh.g = gscore
 
           if (!beenVisited) {
